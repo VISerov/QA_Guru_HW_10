@@ -1,2 +1,2 @@
-# QA_Guru_HW_10
+# mid-level-step-objects
 HW 10
