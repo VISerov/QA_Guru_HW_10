@@ -1,42 +1,60 @@
 from selene import browser, have, be
 import os
 import time
+from tests.conftest import path
 
 
-# Filling the form
 class RegistrationPage:
     def open(self):
         browser.open('/automation-practice-form')
 
     def fill_first_name(self, value):
         browser.element('[id="firstName"]').type(value)
+        return self
 
-    def fill_first_name(self, value):
-        browser.element('[id="lastName"]').type('Serov')
+    def fill_last_name(self, value):
+        browser.element('[id="lastName"]').type(value)
+        return self
 
-    def fill_first_name(self, value):
-        browser.element('[id="userEmail"]').type('hello@gmail.com')
+    def fill_email(self, value):
+        browser.element('[id="userEmail"]').type(value)
+        return self
 
-    def fill_first_name(self, value):
-        browser.element('//*[@id="genterWrapper"]/div[2]/div[1]').click()
+    def fill_gender(self, gender):
+        browser.all('[name=gender]').element_by(have.value(gender)).element('..').click()
+        return self
 
-    def fill_first_name(self, value):
-        browser.element('[id="userNumber"]').type('8800555353')
+    def fill_mobile(self, value):
+        browser.element('[id="userNumber"]').type(value)
 
-    def fill_first_name(self, value):
-        browser.element('[id="dateOfBirthInput"]').click()
+    def fill_date_of_birth(self, year, day, month):
+        browser.element('#dateOfBirthInput').click()
+        browser.element('.react-datepicker__month-select').type(month)
+        browser.element('.react-datepicker__year-select').type(year)
+        browser.element(
+            f'.react-datepicker__day--0{day}:not(.react-datepicker__day--outside-month)'
+        ).click()
+        return self
 
-    def fill_first_name(self, value):
-        browser.element('[value="1996"]').click()
-        browser.element('[value="0"]').click()
-        browser.element('[aria-label="Choose Friday, January 5th, 1996"]').click()
-        browser.element('[id="subjectsInput"]').type('Computer').press_enter()
-        browser.element('[for="hobbies-checkbox-1"]').click()
-        input_field = browser.element('#uploadPicture')
-        input_field.send_keys(os.getcwd() + '\img\Mona_Lisa1.jpg')
-        browser.element('#currentAddress').type('Novgorod')
-        browser.element('#state').click()
-        browser.all("#state div").element_by(have.exact_text("NCR")).click()
-        browser.element('#city').click()
-        browser.all("#city div").element_by(have.exact_text("Delhi")).click()
-        browser.element('#submit').click()
+
+    def fill_subjects(self, value):
+        browser.element('[id="subjectsInput"]').type(value).press_enter()
+        return self
+
+    def choose_hobbies(self, *args):
+        browser.element('label[for="hobbies-checkbox-1"]').click()
+        browser.element('label[for="hobbies-checkbox-2"]').click()
+        browser.element('label[for="hobbies-checkbox-3"]').click()
+        return self
+
+    def upload_image(self, file_name):
+        browser.element('#uploadPicture').send_keys(path(file_name))
+        return self
+    #
+    # def fill_first_name(self, value):
+    #     browser.element('#currentAddress').type('Novgorod')
+    #     browser.element('#state').click()
+    #     browser.all("#state div").element_by(have.exact_text("NCR")).click()
+    #     browser.element('#city').click()
+    #     browser.all("#city div").element_by(have.exact_text("Delhi")).click()
+    #     browser.element('#submit').click()
