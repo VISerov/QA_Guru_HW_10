@@ -1,5 +1,4 @@
 from selene import browser, have, command
-
 from tests.conftest import path
 
 

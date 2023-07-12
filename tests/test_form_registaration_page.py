@@ -3,6 +3,7 @@ from pages.registration_form import RegistrationPage
 registration_page = RegistrationPage()
 
 
+
 def test_form_registration_page():
     registration_page.open()
     registration_page.fill_first_name('Vladimir')
