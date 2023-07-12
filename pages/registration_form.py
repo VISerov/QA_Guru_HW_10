@@ -39,7 +39,6 @@ class RegistrationPage:
         ).click()
         return self
 
-
     def fill_subjects(self, value):
         browser.element('[id="subjectsInput"]').type(value).press_enter()
         return self
@@ -53,6 +52,7 @@ class RegistrationPage:
     def upload_image(self, file_name):
         browser.element('#uploadPicture').send_keys(path(file_name))
         return self
+
     #
     def fill_curent_address(self, value):
         browser.element('#currentAddress').type(value)
